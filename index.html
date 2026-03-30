@@ -1778,15 +1778,55 @@ async function deleteEmp(id){
 function openBulkStatus(){if(curMonth==='master'){showToast('Switch to a monthly tab first','err');return;}updBkOpts();openM('m-bulk-st');}
 function updBkOpts(){const f=el('bk-ret').value;const opts=f==='g1'?G1S:f==='g3'?G3S:G2BS;el('bk-st').innerHTML=opts.map(s=>`<option>${s}</option>`).join('');}
 el('bk-ret')&&el('bk-ret').addEventListener('change',updBkOpts);
-async function doBulkSt(){
-  const retMap={g1:'g1st',g2b:'g2bst',g3:'g3st'};
-  const field=retMap[el('bk-ret').value]||'g1st';
-  const value=el('bk-st').value;
-  const rows=monthData[curMonth]=monthData[curMonth]||[];
-  [...sel].forEach(name=>{let r=rows.find(x=>x.name===name);if(!r){r={name};rows.push(r);}r[field]=value;});
-  await saveLocal();clearSel();renderTable();
-  if(isConn)try{await sf('bulkUpdate',{period:curMonth,names:[...sel],field,value});}catch(e){}
-  closeM('m-bulk-st');showToast([...sel].length+' updated ✓','ok');
+async function doBulkSt() {
+  const retMap = { g1: 'g1st', g2b: 'g2bst', g3: 'g3st' };
+  const field = retMap[el('bk-ret').value] || 'g1st';
+  const value = el('bk-st').value;
+  const selectedNames = [...sel];
+
+  // 1. Update Local State
+  const rows = monthData[curMonth] = monthData[curMonth] || [];
+  selectedNames.forEach(name => {
+    let r = rows.find(x => x.name === name);
+    if (!r) {
+      r = { name };
+      rows.push(r);
+    }
+    r[field] = value;
+  });
+
+  await saveLocal();
+  renderTable();
+  renderDashboard();
+
+  // 2. Sync to Google Sheets
+  if (isConn && scriptUrl && scriptUrl !== 'YOUR_APPS_SCRIPT_URL_HERE') {
+    setSS('busy', 'Bulk Updating...');
+    try {
+      // Call the bulkUpdate action defined in your Apps Script 
+      const r = await sf('bulkUpdate', {
+        period: curMonth,
+        names: selectedNames,
+        field: field,
+        value: value
+      });
+
+      if (r && r.updated > 0) {
+        setSS('ok', 'Synced ' + r.updated + ' rows');
+        showToast(r.updated + ' clients updated in Sheets ✓', 'ok');
+      } else {
+        throw new Error('No rows were updated in the sheet');
+      }
+    } catch (e) {
+      setSS('err', 'Bulk sync failed');
+      showToast('Sync failed: ' + e.message, 'err');
+    }
+  } else {
+    showToast(selectedNames.length + ' updated locally ✓', 'ok');
+  }
+
+  clearSel();
+  closeM('m-bulk-st');
 }
 
 // ── EXPORT CSV ───────────────────────────────────────────
