@@ -1928,67 +1928,61 @@ async function doBulkSt() {
 }
 
 // ── EXPORT CSV ───────────────────────────────────────────
-function exportCSV() {
-  // 1. Prepare Headers: Combine Master keys and Monthly keys
-  const masterHeaders = ["Name", "GSTIN", "State", "Frequency", "Priority", "Employee", "Fees P.A.", "GST User", "Owner Name", "Owner Phone"];
-  const monthlyHeaders = ["GSTR-1 Status", "GSTR-2B Status", "GSTR-3B Status", "G1 Remarks", "G3B Remarks", "G1 Assigned", "G3B Assigned"];
+async function exportCSV() {
+  showToast('Generating Full System Export...', 'ok');
   
-  const allHeaders = [...masterHeaders, ...monthlyHeaders];
+  // 1. All headers from CLIENT_MASTER + MONTHLY Status
+  const headers = [
+    "Name", "GSTIN", "State", "Frequency", "Priority", "E-Invoice", "Fees PA", 
+    "LUT Filed Date", "GSTR2B Scope", "IMS Scope", "Sale Reco", "Purchase Reco", 
+    "Default Employee", "G1 Work Hrs", "G3B Work Hrs", "Special Instructions", 
+    "PTEC No", "PTRC Applicable", "PTRC Number", "Tally Version", "Tally Username", 
+    "Tally Password", "GST Username", "GST Password", "Data Provider Name", 
+    "Data Provider Phone", "Data Provider Email", "OTP Provider Name", 
+    "OTP Provider Phone", "OTP Provider Email", "Owner Name", "Owner Phone", "Owner Email",
+    "CUR_MONTH_G1_STATUS", "CUR_MONTH_G2B_STATUS", "CUR_MONTH_G3B_STATUS", "G1_REMARKS", "G3B_REMARKS"
+  ];
 
-  // 2. Get Data
-  const isMaster = curMonth === 'master';
-  const masterList = clients; // Always use full client list for "Whole Client Master"
+  // 2. Setup lookup for the currently selected month
   const monthRows = monthData[curMonth] || [];
-  
-  // Create a map for quick lookup of monthly data
   const monthMap = {};
   monthRows.forEach(r => { if(r.name) monthMap[r.name] = r; });
 
-  // 3. Build Rows
-  const csvRows = masterList.map(c => {
-    const m = monthMap[c.name] || {}; // Get monthly data if it exists
+  // 3. Build the rows by merging Master + Monthly data
+  const csvRows = clients.map(c => {
+    const m = monthMap[c.name] || {};
     
-    // Master Data Points
-    const row = [
-      c.name, c.gstin, c.state, c.freq, c.priority, c.emp, c.fees, c.gst_user, c.own_name, c.own_phone
+    return [
+      c.name, c.gstin, c.state, c.freq, c.priority, c.einvoice, c.fees, 
+      c.lut, c.g2bscope, c.ims, c.salereco, c.purcreco, c.emp, c.g1hrs, 
+      c.g3hrs, c.instructions, c.ptec_no, c.ptrc_applicable, c.ptrc_no, 
+      c.tally_ver, c.tally_user, c.tally_pass, c.gst_user, c.gst_pass, 
+      c.dp_name, c.dp_phone, c.dp_email, c.otp_name, c.otp_phone, 
+      c.otp_email, c.own_name, c.own_phone, c.own_email,
+      // Monthly Status Data (appended at the end)
+      m.g1st || 'Data Not Received',
+      m.g2bst || 'Nil / Not Generated',
+      m.g3st || 'Data Not Received',
+      m.g1rem || '',
+      m.g3rem || ''
     ];
-    
-    // Append Monthly Data Points (only if not in 'master' view, otherwise leave blank)
-    if (!isMaster) {
-      row.push(
-        m.g1st || 'Data Not Received',
-        m.g2bst || 'Nil / Not Generated',
-        m.g3st || 'Data Not Received',
-        m.g1rem || '',
-        m.g3rem || '',
-        m.g1emp || c.emp || '',
-        m.g3emp || c.emp || ''
-      );
-    } else {
-      // Fill with "N/A" or empty if exporting from Master tab
-      row.push("N/A", "N/A", "N/A", "", "", "", "");
-    }
-    
-    return row;
   });
 
-  // 4. Generate CSV String
-  const csvContent = [allHeaders, ...csvRows]
-    .map(r => r.map(v => `"${String(v || '').replace(/"/g, '""')}"`).join(','))
+  // 4. Create CSV string with proper escaping
+  const csvContent = [headers, ...csvRows]
+    .map(row => row.map(val => `"${String(val || '').replace(/"/g, '""')}"`).join(','))
     .join('\n');
 
-  // 5. Trigger Download
+  // 5. Trigger download
   const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
   const link = document.createElement("a");
-  const fileName = `GST_Full_Export_${curMonth}_${new Date().toISOString().slice(0,10)}.csv`;
+  const filename = `GST_FULL_EXPORT_${curMonth}_${new Date().toISOString().split('T')[0]}.csv`;
   
-  link.setAttribute("href", URL.createObjectURL(blob));
-  link.setAttribute("download", fileName);
-  document.body.appendChild(link);
+  link.href = URL.createObjectURL(blob);
+  link.download = filename;
   link.click();
-  document.body.removeChild(link);
   
-  showToast('Combined Export Ready ✓', 'ok');
+  showToast('Full Export Downloaded ✓', 'ok');
 }
 
 // ── MODAL / TOAST ────────────────────────────────────────
