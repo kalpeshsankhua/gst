@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>GST Tracker — Kalpesh Team</title>
+<title>GST Status Tracker — Kalpesh Team</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
@@ -81,7 +81,7 @@ body{display:flex;overflow:hidden}
   width:36px;height:36px;border-radius:10px;
   background:linear-gradient(135deg,#3b82f6,#60a5fa);
   display:flex;align-items:center;justify-content:center;
-  font-size:16px;font-weight:800;color:white;
+  font-size:11px;font-weight:800;color:white;
   box-shadow:0 3px 10px rgba(59,130,246,.4);flex-shrink:0;
   letter-spacing:-1px;
 }
@@ -583,6 +583,123 @@ tbody tr{animation:faderow .18s ease both}
 }
 .login-err.show{display:block}
 .login-footer{text-align:center;margin-top:18px;font-size:10px;color:#a0aec0}
+
+/* ═══════════════════════════════════════════════
+   LOGOUT BUTTON
+═══════════════════════════════════════════════ */
+.tb-logout{
+  display:flex;align-items:center;gap:5px;padding:6px 12px;
+  border-radius:7px;font-family:inherit;font-size:11px;font-weight:600;
+  cursor:pointer;border:1.5px solid #fecaca;background:#fef2f2;color:#b91c1c;
+  transition:all .15s;flex-shrink:0;
+}
+.tb-logout:hover{background:#fee2e2;border-color:#fca5a5;box-shadow:0 2px 8px rgba(185,28,28,.15)}
+
+/* ═══════════════════════════════════════════════
+   VIEW TOGGLE BUTTON
+═══════════════════════════════════════════════ */
+.view-toggle-btn{
+  display:flex;align-items:center;gap:5px;padding:6px 11px;
+  border-radius:7px;font-family:inherit;font-size:11px;font-weight:600;
+  cursor:pointer;border:1.5px solid var(--border);background:var(--white);color:var(--ink3);
+  transition:all .15s;flex-shrink:0;
+}
+.view-toggle-btn:hover{background:var(--bg);border-color:var(--border2)}
+.view-toggle-btn.mobile-active{background:var(--navy);color:white;border-color:var(--navy)}
+
+/* ═══════════════════════════════════════════════
+   WORKBOOK EXPORT MODAL
+═══════════════════════════════════════════════ */
+.export-opt{
+  display:flex;align-items:flex-start;gap:12px;padding:12px 14px;
+  border-radius:9px;border:1.5px solid var(--border);background:var(--bg);
+  cursor:pointer;transition:all .15s;margin-bottom:8px;
+}
+.export-opt:hover{border-color:var(--accent);background:var(--accent-lt)}
+.export-opt.selected{border-color:var(--accent);background:var(--accent-lt);box-shadow:0 0 0 3px rgba(37,99,235,.08)}
+.export-opt-icon{font-size:22px;flex-shrink:0;margin-top:1px}
+.export-opt-body{flex:1}
+.export-opt-title{font-size:12px;font-weight:700;color:var(--ink);margin-bottom:2px}
+.export-opt-desc{font-size:10px;color:var(--ink4);line-height:1.5}
+.export-month-sel{
+  background:var(--bg);border:1.5px solid var(--border);color:var(--ink);
+  padding:8px 11px;font-family:inherit;font-size:12px;outline:none;
+  border-radius:7px;width:100%;transition:all .2s;margin-top:4px;
+}
+.export-month-sel:focus{border-color:var(--accent);background:var(--white);box-shadow:0 0 0 3px rgba(37,99,235,.07)}
+
+/* ═══════════════════════════════════════════════
+   MOBILE-VIEW TOGGLE (CLASS-DRIVEN, DESKTOP TOO)
+═══════════════════════════════════════════════ */
+body.mobile-view .sidebar{
+  width:100%;height:auto;position:relative;flex-direction:row;
+  box-shadow:none;
+}
+body.mobile-view .sb-nav{display:none}
+body.mobile-view .sb-bottom{display:none}
+body.mobile-view .sb-brand{padding:10px 14px;border-bottom:none;flex:1}
+body.mobile-view .main{margin-left:0;height:auto;overflow:visible}
+body.mobile-view body{flex-direction:column;overflow:auto;height:auto}
+body.mobile-view .topbar{padding:8px 12px;flex-wrap:wrap;height:auto;gap:6px}
+body.mobile-view .topbar-title{font-size:14px;width:100%}
+body.mobile-view #gst-actions,
+body.mobile-view #tasks-actions,
+body.mobile-view #emp-actions{flex-wrap:wrap;gap:5px;margin-left:0!important;width:100%}
+body.mobile-view .gstr-toggle{width:100%}
+body.mobile-view .gtr-btn{flex:1;padding:6px}
+body.mobile-view .tb-btn{font-size:11px;padding:6px 10px}
+body.mobile-view .dash-panel{padding:10px 12px}
+body.mobile-view .stat-cards{gap:5px}
+body.mobile-view .stat-card{min-width:80px;padding:7px 9px}
+body.mobile-view .stat-num{font-size:18px}
+body.mobile-view .toolbar{padding:7px 12px;gap:5px}
+body.mobile-view .search-box{min-width:100%;width:100%}
+body.mobile-view .fsel{font-size:10px;padding:5px 7px}
+body.mobile-view .tbl-wrap{padding:0 8px 30px;padding-top:10px}
+body.mobile-view .tbl-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch}
+body.mobile-view tbody td{padding:7px 8px}
+body.mobile-view thead th{padding:7px 8px}
+body.mobile-view .content-panel{padding:12px 10px 30px}
+body.mobile-view .bulk-bar{padding:7px 12px;flex-wrap:wrap}
+
+/* ═══════════════════════════════════════════════
+   RESPONSIVE MEDIA QUERIES (AUTO ON SMALL SCREENS)
+═══════════════════════════════════════════════ */
+@media(max-width:768px){
+  :root{--sb-w:100%}
+  body{flex-direction:column;overflow:auto;height:auto}
+  .sidebar{width:100%!important;height:auto!important;position:relative!important;flex-direction:row!important}
+  .sb-nav{display:none!important}
+  .sb-bottom{display:none!important}
+  .sb-brand{padding:10px 14px!important;border-bottom:none!important;flex:1}
+  .main{margin-left:0!important;height:auto!important;overflow:visible!important}
+  html{height:auto}
+  .topbar{padding:8px 12px!important;flex-wrap:wrap!important;height:auto!important}
+  .topbar-title{font-size:14px!important;width:100%}
+  #gst-actions,#tasks-actions,#emp-actions{flex-wrap:wrap!important;gap:5px!important;margin-left:0!important;width:100%}
+  .gstr-toggle{width:100%}
+  .gtr-btn{flex:1;padding:6px}
+  .tb-btn{font-size:11px!important;padding:6px 10px!important}
+  .dash-panel{padding:10px 12px!important}
+  .stat-cards{gap:5px}
+  .stat-card{min-width:70px!important;padding:7px 9px!important}
+  .stat-num{font-size:16px!important}
+  .toolbar{padding:7px 10px!important;gap:4px}
+  .search-box{min-width:100%!important;width:100%!important}
+  .fsel{font-size:10px!important;padding:5px 6px!important}
+  .tbl-wrap{padding:0 6px 30px!important;padding-top:8px!important}
+  .tbl-scroll{overflow-x:auto!important;-webkit-overflow-scrolling:touch}
+  .content-panel{padding:10px 8px 30px!important}
+  .bulk-bar{padding:7px 10px!important;flex-wrap:wrap}
+  .tb-logout,.view-toggle-btn{font-size:10px!important;padding:5px 8px!important}
+  .modal{border-radius:10px}
+  .mbody{padding:14px}
+  .fr2,.fr3,.fr4{grid-template-columns:1fr 1fr!important}
+}
+@media(max-width:480px){
+  .fr2,.fr3,.fr4{grid-template-columns:1fr!important}
+  .stat-card{min-width:60px!important}
+}
 </style>
 </head>
 <body>
@@ -591,15 +708,15 @@ tbody tr{animation:faderow .18s ease both}
 <div id="login-screen">
   <div class="login-card">
     <div class="login-logo">
-      <div class="login-logo-icon">GT</div>
+      <div class="login-logo-icon">KGS</div>
       <div class="login-logo-text">
-        <div class="login-logo-title">GST Tracker</div>
+        <div class="login-logo-title">GST Status Tracker</div>
         <div class="login-logo-sub">Kalpesh Team</div>
       </div>
     </div>
     <div class="login-heading">
       <h2>Welcome Back</h2>
-      <p>Sign in to access your GST dashboard</p>
+      <p>Sign in to access your GST Status dashboard</p>
     </div>
     <div class="login-fg">
       <label class="login-lbl" for="login-mobile">Mobile Number</label>
@@ -611,7 +728,7 @@ tbody tr{animation:faderow .18s ease both}
     </div>
     <button class="login-btn" id="login-btn" onclick="doLogin()">Sign In</button>
     <div class="login-err" id="login-err"></div>
-    <div class="login-footer">GST Tracker &copy; Kalpesh Team &nbsp;|&nbsp; Secure Login</div>
+    <div class="login-footer">GST Status Tracker &copy; Kalpesh Team &nbsp;|&nbsp; Secure Login</div>
   </div>
 </div>
 
@@ -619,9 +736,9 @@ tbody tr{animation:faderow .18s ease both}
 <div class="sidebar">
   <div class="sb-brand">
     <div class="sb-brand-logo">
-      <div class="sb-logo-icon">GT</div>
+      <div class="sb-logo-icon">KGS</div>
       <div class="sb-brand-text">
-        <div class="sb-title">GST Tracker</div>
+        <div class="sb-title">GST Status Tracker</div>
         <div class="sb-sub">Kalpesh Team</div>
       </div>
     </div>
@@ -668,6 +785,9 @@ tbody tr{animation:faderow .18s ease both}
       <span id="sync-lbl">Google Sheets</span>
       <div class="sync-dot" id="syncDot"></div>
     </div>
+    <div class="sb-sync-row" onclick="openExportModal()">
+      <span>📊</span><span>Export Workbook</span>
+    </div>
     <div class="sb-sync-row" onclick="exportCSV()">
       <span>⬇</span><span>Export CSV</span>
     </div>
@@ -695,6 +815,9 @@ tbody tr{animation:faderow .18s ease both}
     <div style="display:none;align-items:center;gap:8px;margin-left:auto" id="emp-actions">
       <button class="tb-btn tb-primary" onclick="openAddEmp()">＋ Add Employee</button>
     </div>
+    <div class="tb-divider" id="tb-right-divider"></div>
+    <button class="view-toggle-btn" id="view-toggle-btn" onclick="toggleMobileView()" title="Toggle Mobile/Desktop View">📱 Mobile View</button>
+    <button class="tb-logout" onclick="doLogout()" title="Logout">⏻ Logout</button>
   </div>
 
   <!-- DASHBOARD PANEL -->
@@ -1056,6 +1179,48 @@ tbody tr{animation:faderow .18s ease both}
     <div class="mfooter">
       <button class="tb-btn tb-secondary" onclick="closeM('m-bulk-st')">Cancel</button>
       <button class="tb-btn tb-primary" onclick="doBulkSt()">Update</button>
+    </div>
+  </div>
+</div>
+
+<!-- ════ MODAL: EXPORT WORKBOOK ════ -->
+<div class="overlay" id="m-export">
+  <div class="modal msm">
+    <div class="mhdr">
+      <div class="mhdr-l">
+        <div class="micon micon-green">📊</div>
+        <div><div class="mtitle">Export Workbook</div><div class="msub">Download CLIENT_MASTER + selected month data</div></div>
+      </div>
+      <button class="mclose" onclick="closeM('m-export')">✕</button>
+    </div>
+    <div class="mbody">
+      <div style="font-size:11px;color:var(--ink3);margin-bottom:14px;padding:9px 12px;background:var(--accent-lt);border-radius:7px;border-left:3px solid var(--accent)">
+        Exports a multi-sheet workbook as CSV files (zipped). Sheet 1 = CLIENT_MASTER, Sheet 2 = selected month data.
+      </div>
+      <div class="fg" style="margin-bottom:14px">
+        <label class="fl">Select Month for Sheet 2</label>
+        <select class="export-month-sel" id="export-month-sel">
+          <option value="">— Select a month —</option>
+        </select>
+      </div>
+      <div class="export-opt selected" id="export-opt-workbook" onclick="selectExportOpt('workbook')">
+        <div class="export-opt-icon">📦</div>
+        <div class="export-opt-body">
+          <div class="export-opt-title">Multi-Sheet Workbook (ZIP)</div>
+          <div class="export-opt-desc">Downloads two CSV files zipped: <strong>CLIENT_MASTER.csv</strong> + <strong>[Month]_Data.csv</strong>. Open in Excel → Data → From Text/CSV, or extract and import.</div>
+        </div>
+      </div>
+      <div class="export-opt" id="export-opt-csv" onclick="selectExportOpt('csv')">
+        <div class="export-opt-icon">📄</div>
+        <div class="export-opt-body">
+          <div class="export-opt-title">Current View Only (CSV)</div>
+          <div class="export-opt-desc">Exports only the current filtered table view as a single CSV file. Same as the existing Export CSV function.</div>
+        </div>
+      </div>
+    </div>
+    <div class="mfooter">
+      <button class="tb-btn tb-secondary" onclick="closeM('m-export')">Cancel</button>
+      <button class="tb-btn tb-primary" id="do-export-btn" onclick="doExport()">⬇ Download</button>
     </div>
   </div>
 </div>
@@ -1950,35 +2115,89 @@ function showToast(msg,type){
   clearTimeout(_toastT);_toastT=setTimeout(()=>t.classList.remove('show'),2600);
 }
 
-// ── LOGIN / AUTH ─────────────────────────────────────────
-(function(){
-  // Check existing session on load
-  if(sessionStorage.getItem('gst_auth')==='1'){
-    const ls=document.getElementById('login-screen');
+// ── LOGIN / AUTH + SESSION ────────────────────────────────
+const SESSION_KEY      = 'gst_auth';
+const SESSION_TIME_KEY = 'gst_auth_ts';
+const SESSION_DURATION = 12 * 60 * 60 * 1000; // 12 hours in ms
+const VIEW_PREF_KEY    = 'gst_view_pref';
+
+(function initSession(){
+  const auth = sessionStorage.getItem(SESSION_KEY);
+  const ts   = parseInt(sessionStorage.getItem(SESSION_TIME_KEY)||'0',10);
+  const ls   = document.getElementById('login-screen');
+  if(auth==='1' && ts && (Date.now()-ts)<SESSION_DURATION){
     if(ls)ls.style.display='none';
+  } else if(auth==='1'){
+    // Expired
+    sessionStorage.removeItem(SESSION_KEY);
+    sessionStorage.removeItem(SESSION_TIME_KEY);
+    if(ls){
+      const errEl=ls.querySelector('#login-err');
+      if(errEl){errEl.textContent='Session expired. Please login again.';errEl.classList.add('show');}
+    }
   }
+  // Apply saved view preference
+  if(localStorage.getItem(VIEW_PREF_KEY)==='mobile'){
+    document.body.classList.add('mobile-view');
+    const btn=document.getElementById('view-toggle-btn');
+    if(btn){btn.classList.add('mobile-active');btn.textContent='🖥 Desktop View';}
+  }
+  // Block back-navigation post logout via history state
+  history.pushState(null,'',location.href);
+  window.addEventListener('popstate',function(){
+    if(!sessionStorage.getItem(SESSION_KEY)){
+      history.pushState(null,'',location.href);
+      const ls2=document.getElementById('login-screen');
+      if(ls2)ls2.style.display='flex';
+    } else {
+      history.pushState(null,'',location.href);
+    }
+  });
 })();
+
+// Auto-logout checker — runs on every user interaction
+(function(){
+  function checkSession(){
+    if(!sessionStorage.getItem(SESSION_KEY))return;
+    const ts=parseInt(sessionStorage.getItem(SESSION_TIME_KEY)||'0',10);
+    if(ts && (Date.now()-ts)>=SESSION_DURATION){
+      sessionStorage.removeItem(SESSION_KEY);
+      sessionStorage.removeItem(SESSION_TIME_KEY);
+      showLoginWithMsg('Session expired. Please login again.');
+    }
+  }
+  // Check on interval (every 60s)
+  setInterval(checkSession,60000);
+  // Check on any user interaction
+  ['click','keydown','scroll','touchstart'].forEach(ev=>
+    document.addEventListener(ev,checkSession,{passive:true})
+  );
+})();
+
+function showLoginWithMsg(msg){
+  const ls=document.getElementById('login-screen');
+  if(!ls)return;
+  ls.style.opacity='1';ls.style.display='flex';
+  const errEl=document.getElementById('login-err');
+  if(errEl&&msg){errEl.textContent=msg;errEl.classList.add('show');}
+}
 
 async function doLogin(){
   const mobile=(document.getElementById('login-mobile').value||'').trim();
   const pass=(document.getElementById('login-pass').value||'').trim();
   const errEl=document.getElementById('login-err');
   const btn=document.getElementById('login-btn');
-
   errEl.classList.remove('show');
   if(!mobile||!pass){errEl.textContent='Please enter mobile number and password.';errEl.classList.add('show');return;}
-
   btn.textContent='Signing in…';btn.disabled=true;
-
   try{
-    // Validate via Apps Script backend
     const res=await fetch(APPS_SCRIPT_URL+'?action=validateLogin',{
-      method:'POST',
-      body:JSON.stringify({action:'validateLogin',mobile,password:pass})
+      method:'POST',body:JSON.stringify({action:'validateLogin',mobile,password:pass})
     });
     const j=await res.json();
     if(j.success&&j.data&&j.data.valid){
-      sessionStorage.setItem('gst_auth','1');
+      sessionStorage.setItem(SESSION_KEY,'1');
+      sessionStorage.setItem(SESSION_TIME_KEY,String(Date.now()));
       const ls=document.getElementById('login-screen');
       if(ls){ls.style.transition='opacity .3s';ls.style.opacity='0';setTimeout(()=>ls.style.display='none',300);}
     }else{
@@ -1992,6 +2211,194 @@ async function doLogin(){
     errEl.classList.add('show');
   }
   btn.textContent='Sign In';btn.disabled=false;
+}
+
+function doLogout(){
+  sessionStorage.removeItem(SESSION_KEY);
+  sessionStorage.removeItem(SESSION_TIME_KEY);
+  const ls=document.getElementById('login-screen');
+  if(ls){
+    const errEl=document.getElementById('login-err');
+    if(errEl)errEl.classList.remove('show');
+    document.getElementById('login-mobile').value='';
+    document.getElementById('login-pass').value='';
+    ls.style.opacity='0';ls.style.display='flex';
+    requestAnimationFrame(()=>{ls.style.transition='opacity .25s';ls.style.opacity='1';});
+  }
+  history.pushState(null,'',location.href);
+}
+
+// ── MOBILE VIEW TOGGLE ───────────────────────────────────
+function toggleMobileView(){
+  const isMobile=document.body.classList.toggle('mobile-view');
+  const btn=document.getElementById('view-toggle-btn');
+  if(btn){
+    btn.classList.toggle('mobile-active',isMobile);
+    btn.textContent=isMobile?'🖥 Desktop View':'📱 Mobile View';
+  }
+  localStorage.setItem(VIEW_PREF_KEY,isMobile?'mobile':'desktop');
+}
+
+// ── EXPORT WORKBOOK ──────────────────────────────────────
+let _exportOpt='workbook';
+
+function openExportModal(){
+  // Populate month selector from current months list
+  const sel=document.getElementById('export-month-sel');
+  sel.innerHTML='<option value="">— Select a month —</option>';
+  months.forEach(sn=>{
+    const opt=document.createElement('option');
+    opt.value=sn;opt.textContent=snLabel(sn);
+    if(sn===curMonth&&curMonth!=='master')opt.selected=true;
+    sel.appendChild(opt);
+  });
+  openM('m-export');
+}
+
+function selectExportOpt(opt){
+  _exportOpt=opt;
+  document.getElementById('export-opt-workbook').classList.toggle('selected',opt==='workbook');
+  document.getElementById('export-opt-csv').classList.toggle('selected',opt==='csv');
+}
+
+async function doExport(){
+  if(_exportOpt==='csv'){closeM('m-export');exportCSV();return;}
+  // Workbook: CLIENT_MASTER + selected month
+  const btn=document.getElementById('do-export-btn');
+  btn.textContent='Preparing…';btn.disabled=true;
+  try{
+    const selectedSN=document.getElementById('export-month-sel').value;
+    // Sheet 1: CLIENT_MASTER — all columns, all rows
+    const cmHdrs=['Name','GSTIN','State','Frequency','Priority','E-Invoice','Fees PA','LUT Filed Date',
+      'GSTR2B Scope','IMS Scope','Sale Reco','Purchase Reco','Default Employee','G1 Work Hrs','G3B Work Hrs',
+      'Special Instructions','PTEC No','PTRC Applicable','PTRC Number','Tally Version','Tally Username','Tally Password',
+      'GST Username','GST Password','Data Provider Name','Data Provider Phone','Data Provider Email',
+      'OTP Provider Name','OTP Provider Phone','OTP Provider Email','Owner Name','Owner Phone','Owner Email'];
+    const cmKeys=['name','gstin','state','freq','priority','einvoice','fees','lut','g2bscope','ims',
+      'salereco','purcreco','emp','g1hrs','g3hrs','instructions','ptec_no','ptrc_applicable','ptrc_no',
+      'tally_ver','tally_user','tally_pass','gst_user','gst_pass','dp_name','dp_phone','dp_email',
+      'otp_name','otp_phone','otp_email','own_name','own_phone','own_email'];
+    const cmRows=clients.map(c=>cmKeys.map(k=>c[k]||''));
+    const csv1=buildCSV(cmHdrs,cmRows);
+
+    // Sheet 2: selected month data (merged with client master)
+    let csv2='';
+    if(selectedSN){
+      // Fetch month data if not already loaded
+      if(!monthData[selectedSN]&&isConn){
+        try{monthData[selectedSN]=await sf('getMonth',{period:selectedSN});}catch(e){}
+      }
+      const mm=monthData[selectedSN]||[];
+      const map={};mm.forEach(r=>{if(r.name)map[r.name]=r;});
+      const mHdrs=['Name','GSTIN','State','Frequency','Priority','Default Employee',
+        'GSTR1 Status','GSTR1 Employee','GSTR1 Remarks','GSTR2B Status',
+        'GSTR3B Status','GSTR3B Employee','GSTR3B Remarks',
+        'Last Filed GSTR1','Last Filed GSTR3B','Sales Reco','Purchase Reco','Max Hrs G1','Max Hrs G3B','Notes'];
+      const mRows=clients.map(c=>{
+        const mr=map[c.name]||{};
+        return [c.name,c.gstin,c.state,c.freq,c.priority,c.emp,
+          mr.g1st||'',mr.g1emp||'',mr.g1rem||'',mr.g2bst||'',
+          mr.g3st||'',mr.g3emp||'',mr.g3rem||'',
+          mr.g1last||'',mr.g3last||'',mr.salesreco||'',mr.purchreco||'',mr.maxhg1||'',mr.maxhg3||'',mr.notes||''];
+      });
+      csv2=buildCSV(mHdrs,mRows);
+    }
+
+    // Download as ZIP using native JS (no external library needed)
+    const dateStr=new Date().toLocaleDateString('en-IN').replace(/\//g,'-');
+    if(csv2){
+      // Build a simple ZIP with two entries
+      const zipBytes=buildSimpleZip([
+        {name:`CLIENT_MASTER_${dateStr}.csv`,content:csv1},
+        {name:`${selectedSN||'Month'}_Data_${dateStr}.csv`,content:csv2}
+      ]);
+      downloadBlob(new Blob([zipBytes],{type:'application/zip'}),`KGS_Workbook_${dateStr}.zip`);
+      showToast('Workbook exported (2 sheets) ✓','ok');
+    } else {
+      // No month selected — just download CLIENT_MASTER
+      downloadBlob(new Blob([csv1],{type:'text/csv'}),`CLIENT_MASTER_${dateStr}.csv`);
+      showToast('CLIENT_MASTER exported ✓','ok');
+    }
+    closeM('m-export');
+  }catch(e){showToast('Export failed: '+e.message,'err');}
+  btn.textContent='⬇ Download';btn.disabled=false;
+}
+
+function buildCSV(hdrs,rows){
+  return [[...hdrs],...rows].map(r=>r.map(v=>`"${String(v||'').replace(/"/g,'""')}"`).join(',')).join('\r\n');
+}
+function downloadBlob(blob,filename){
+  const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=filename;a.click();
+  setTimeout(()=>URL.revokeObjectURL(a.href),2000);
+}
+
+// Minimal ZIP builder (no external deps)
+function buildSimpleZip(files){
+  // CRC-32 table
+  const crcTable=(()=>{const t=new Uint32Array(256);for(let n=0;n<256;n++){let c=n;for(let k=0;k<8;k++)c=c&1?0xEDB88320^(c>>>1):c>>>1;t[n]=c;}return t;})();
+  function crc32(buf){let c=0xFFFFFFFF;for(let i=0;i<buf.length;i++)c=crcTable[(c^buf[i])&0xFF]^(c>>>8);return(c^0xFFFFFFFF)>>>0;}
+  function u16(v){return[v&0xFF,(v>>8)&0xFF];}
+  function u32(v){return[v&0xFF,(v>>8)&0xFF,(v>>16)&0xFF,(v>>24)&0xFF];}
+  const enc=new TextEncoder();
+  const localHeaders=[];let offset=0;
+  const centralDirs=[];
+  const parts=[];
+  for(const f of files){
+    const nameBytes=enc.encode(f.name);
+    const dataBytes=enc.encode(f.content);
+    const crc=crc32(dataBytes);
+    const localHdr=[
+      0x50,0x4B,0x03,0x04, // sig
+      20,0,               // version
+      0,0,                // flags
+      0,0,                // no compression
+      0,0,0,0,            // mod time/date
+      ...u32(crc),
+      ...u32(dataBytes.length),
+      ...u32(dataBytes.length),
+      ...u16(nameBytes.length),
+      0,0,                // extra len
+      ...nameBytes
+    ];
+    centralDirs.push({name:nameBytes,crc,size:dataBytes.length,offset});
+    parts.push(new Uint8Array(localHdr));
+    parts.push(dataBytes);
+    offset+=localHdr.length+dataBytes.length;
+  }
+  const cdStart=offset;
+  for(const cd of centralDirs){
+    const cde=[
+      0x50,0x4B,0x01,0x02, // central dir sig
+      20,0,20,0,           // versions
+      0,0,0,0,             // flags, compression
+      0,0,0,0,             // mod time/date
+      ...u32(cd.crc),
+      ...u32(cd.size),
+      ...u32(cd.size),
+      ...u16(cd.name.length),
+      0,0,0,0,0,0,         // extra,comment,disk,int attrs
+      0,0,0,0,             // ext attrs
+      ...u32(cd.offset),
+      ...cd.name
+    ];
+    parts.push(new Uint8Array(cde));
+    offset+=cde.length;
+  }
+  const cdSize=offset-cdStart;
+  const eocd=[
+    0x50,0x4B,0x05,0x06, // EOCD sig
+    0,0,0,0,             // disk numbers
+    ...u16(files.length),...u16(files.length),
+    ...u32(cdSize),
+    ...u32(cdStart),
+    0,0
+  ];
+  parts.push(new Uint8Array(eocd));
+  // Concat all parts
+  const total=parts.reduce((a,p)=>a+p.length,0);
+  const result=new Uint8Array(total);let pos=0;
+  for(const p of parts){result.set(p,pos);pos+=p.length;}
+  return result;
 }
 
 // ── INIT ────────────────────────────────────────────────
