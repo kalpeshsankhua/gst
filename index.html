@@ -343,6 +343,7 @@ tbody td:first-child{padding-left:14px}
 .s-received {background:#fffbeb;color:#92400e;border-color:#fde68a}
 .s-draft    {background:#f5f3ff;color:#5b21b6;border-color:#ddd6fe}
 .s-checked  {background:#eff6ff;color:#1e40af;border-color:#bfdbfe}
+.s-sentappr {background:#fff1f2;color:#be123c;border-color:#fda4af}
 .s-approved {background:#ecfeff;color:#0e7490;border-color:#a5f3fc}
 .s-otp      {background:#fff7ed;color:#9a3412;border-color:#fed7aa}
 .s-filed    {background:#f0fdf4;color:#15803d;border-color:#bbf7d0}
@@ -513,9 +514,106 @@ tbody td:first-child{padding-left:14px}
 .empty-txt{font-size:13px;font-weight:500}
 @keyframes faderow{from{opacity:0;transform:translateY(3px)}to{opacity:1;transform:translateY(0)}}
 tbody tr{animation:faderow .18s ease both}
+
+/* ═══════════════════════════════════════════════
+   LOGIN SCREEN
+═══════════════════════════════════════════════ */
+#login-screen{
+  position:fixed;inset:0;z-index:9999;
+  background:linear-gradient(135deg,#0f1d35 0%,#1e3a5f 50%,#152b4e 100%);
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Inter',sans-serif;
+}
+#login-screen::before{
+  content:'';position:absolute;inset:0;
+  background:url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  pointer-events:none;
+}
+.login-card{
+  position:relative;z-index:1;
+  background:rgba(255,255,255,.97);
+  border-radius:18px;
+  width:100%;max-width:400px;
+  padding:40px 36px 36px;
+  box-shadow:0 30px 80px rgba(0,0,0,.4),0 8px 20px rgba(0,0,0,.2);
+  animation:loginIn .35s cubic-bezier(.34,1.5,.64,1);
+}
+@keyframes loginIn{from{opacity:0;transform:translateY(24px) scale(.96)}to{opacity:1;transform:none}}
+.login-logo{
+  display:flex;align-items:center;justify-content:center;gap:11px;
+  margin-bottom:26px;
+}
+.login-logo-icon{
+  width:44px;height:44px;border-radius:12px;
+  background:linear-gradient(135deg,#2563eb,#60a5fa);
+  display:flex;align-items:center;justify-content:center;
+  font-size:19px;font-weight:800;color:white;
+  box-shadow:0 4px 14px rgba(37,99,235,.4);
+  letter-spacing:-1px;
+}
+.login-logo-text{line-height:1.2}
+.login-logo-title{font-size:16px;font-weight:800;color:#1a202c;letter-spacing:-.3px}
+.login-logo-sub{font-size:11px;color:#718096;margin-top:1px}
+.login-heading{text-align:center;margin-bottom:26px}
+.login-heading h2{font-size:20px;font-weight:800;color:#1a202c;letter-spacing:-.4px;margin-bottom:4px}
+.login-heading p{font-size:12px;color:#718096}
+.login-fg{display:flex;flex-direction:column;gap:5px;margin-bottom:14px}
+.login-lbl{font-size:10px;font-weight:700;color:#4a5568;text-transform:uppercase;letter-spacing:.4px}
+.login-inp{
+  background:#f7fafc;border:1.5px solid #e2e8f0;color:#1a202c;
+  padding:10px 13px;font-family:'Inter',sans-serif;font-size:13px;
+  outline:none;border-radius:8px;transition:all .2s;width:100%;
+}
+.login-inp:focus{border-color:#2563eb;background:white;box-shadow:0 0 0 3px rgba(37,99,235,.1)}
+.login-btn{
+  width:100%;padding:11px;margin-top:8px;
+  background:linear-gradient(135deg,#2563eb,#1d4ed8);color:white;
+  border:none;border-radius:9px;font-family:'Inter',sans-serif;
+  font-size:13px;font-weight:700;cursor:pointer;letter-spacing:.1px;
+  box-shadow:0 4px 14px rgba(37,99,235,.35);
+  transition:all .2s;
+}
+.login-btn:hover{background:linear-gradient(135deg,#1d4ed8,#1e40af);box-shadow:0 6px 18px rgba(37,99,235,.45);transform:translateY(-1px)}
+.login-btn:active{transform:none}
+.login-btn:disabled{opacity:.65;cursor:not-allowed;transform:none}
+.login-err{
+  background:#fef2f2;border:1.5px solid #fecaca;color:#b91c1c;
+  padding:9px 12px;border-radius:7px;font-size:11px;font-weight:600;
+  margin-top:10px;display:none;text-align:center;
+}
+.login-err.show{display:block}
+.login-footer{text-align:center;margin-top:18px;font-size:10px;color:#a0aec0}
 </style>
 </head>
 <body>
+
+<!-- ════════════════════ LOGIN SCREEN ════════════════════ -->
+<div id="login-screen">
+  <div class="login-card">
+    <div class="login-logo">
+      <div class="login-logo-icon">GT</div>
+      <div class="login-logo-text">
+        <div class="login-logo-title">GST Tracker</div>
+        <div class="login-logo-sub">Kalpesh Team</div>
+      </div>
+    </div>
+    <div class="login-heading">
+      <h2>Welcome Back</h2>
+      <p>Sign in to access your GST dashboard</p>
+    </div>
+    <div class="login-fg">
+      <label class="login-lbl" for="login-mobile">Mobile Number</label>
+      <input class="login-inp" id="login-mobile" type="tel" placeholder="Enter your mobile number" maxlength="15" autocomplete="username">
+    </div>
+    <div class="login-fg">
+      <label class="login-lbl" for="login-pass">Password</label>
+      <input class="login-inp" id="login-pass" type="password" placeholder="Enter your password" autocomplete="current-password" onkeydown="if(event.key==='Enter')doLogin()">
+    </div>
+    <button class="login-btn" id="login-btn" onclick="doLogin()">Sign In</button>
+    <div class="login-err" id="login-err"></div>
+    <div class="login-footer">GST Tracker &copy; Kalpesh Team &nbsp;|&nbsp; Secure Login</div>
+  </div>
+</div>
 
 <!-- ════════════════════ SIDEBAR ════════════════════ -->
 <div class="sidebar">
@@ -972,16 +1070,16 @@ const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxlbH9-9V0YIxuJ
 // ═══════════════════════════════════════════════════════
 
 // ── STATUS DEFINITIONS ──────────────────────────────────
-const G1S  = ['Disabled','Data Not Received','Data Received','Draft Ready','Checked','Approved','Ready to File (OTP)','Filed'];
-const G3S  = ['Disabled','Data Not Received','Data Received','Draft Ready','Checked','Payment Pending','Payment Done','Approved','Ready to File (OTP)','Filed'];
+const G1S  = ['Disabled','Data Not Received','Data Received','Draft Ready','Checked','Sent for Approval','Approved','Ready to File (OTP)','Filed'];
+const G3S  = ['Disabled','Data Not Received','Data Received','Draft Ready','Checked','Sent for Approval','Payment Pending','Payment Done','Approved','Ready to File (OTP)','Filed'];
 const G2BS = ['Nil / Not Generated','Generated Not Sent','Sent','IMS Pending'];
 
-const G1_DOT  = ['#94a3b8','#ef4444','#f59e0b','#8b5cf6','#3b82f6','#0ea5e9','#f97316','#22c55e'];
-const G3_DOT  = ['#94a3b8','#ef4444','#f59e0b','#8b5cf6','#3b82f6','#eab308','#10b981','#0ea5e9','#f97316','#22c55e'];
+const G1_DOT  = ['#94a3b8','#ef4444','#f59e0b','#8b5cf6','#3b82f6','#f43f5e','#0ea5e9','#f97316','#22c55e'];
+const G3_DOT  = ['#94a3b8','#ef4444','#f59e0b','#8b5cf6','#3b82f6','#f43f5e','#eab308','#10b981','#0ea5e9','#f97316','#22c55e'];
 const G2B_DOT = ['#94a3b8','#ec4899','#22c55e','#8b5cf6'];
 
-const G1_CLS  = ['s-disabled','s-notrcvd','s-received','s-draft','s-checked','s-approved','s-otp','s-filed'];
-const G3_CLS  = ['s-disabled','s-notrcvd','s-received','s-draft','s-checked','s-paypend','s-paydone','s-approved','s-otp','s-filed'];
+const G1_CLS  = ['s-disabled','s-notrcvd','s-received','s-draft','s-checked','s-sentappr','s-approved','s-otp','s-filed'];
+const G3_CLS  = ['s-disabled','s-notrcvd','s-received','s-draft','s-checked','s-sentappr','s-paypend','s-paydone','s-approved','s-otp','s-filed'];
 const G2B_CLS = ['s-nilgen','s-gensent','s-sent','s-imscli'];
 
 const CLIENT_KEYS = ['name','gstin','state','freq','priority','einvoice','fees','lut','g2bscope','ims','salereco','purcreco','emp','g1hrs','g3hrs','instructions','ptec_no','ptrc_applicable','ptrc_no','tally_ver','tally_user','tally_pass','gst_user','gst_pass','dp_name','dp_phone','dp_email','otp_name','otp_phone','otp_email','own_name','own_phone','own_email'];
@@ -1850,6 +1948,50 @@ function showToast(msg,type){
   if(m)m.textContent=msg;
   t.className='toast'+(type==='ok'?' tok':type==='err'?' terr':'')+' show';
   clearTimeout(_toastT);_toastT=setTimeout(()=>t.classList.remove('show'),2600);
+}
+
+// ── LOGIN / AUTH ─────────────────────────────────────────
+(function(){
+  // Check existing session on load
+  if(sessionStorage.getItem('gst_auth')==='1'){
+    const ls=document.getElementById('login-screen');
+    if(ls)ls.style.display='none';
+  }
+})();
+
+async function doLogin(){
+  const mobile=(document.getElementById('login-mobile').value||'').trim();
+  const pass=(document.getElementById('login-pass').value||'').trim();
+  const errEl=document.getElementById('login-err');
+  const btn=document.getElementById('login-btn');
+
+  errEl.classList.remove('show');
+  if(!mobile||!pass){errEl.textContent='Please enter mobile number and password.';errEl.classList.add('show');return;}
+
+  btn.textContent='Signing in…';btn.disabled=true;
+
+  try{
+    // Validate via Apps Script backend
+    const res=await fetch(APPS_SCRIPT_URL+'?action=validateLogin',{
+      method:'POST',
+      body:JSON.stringify({action:'validateLogin',mobile,password:pass})
+    });
+    const j=await res.json();
+    if(j.success&&j.data&&j.data.valid){
+      sessionStorage.setItem('gst_auth','1');
+      const ls=document.getElementById('login-screen');
+      if(ls){ls.style.transition='opacity .3s';ls.style.opacity='0';setTimeout(()=>ls.style.display='none',300);}
+    }else{
+      errEl.textContent='Invalid credentials. Please try again.';
+      errEl.classList.add('show');
+      document.getElementById('login-pass').value='';
+      document.getElementById('login-pass').focus();
+    }
+  }catch(e){
+    errEl.textContent='Connection error. Please check your network.';
+    errEl.classList.add('show');
+  }
+  btn.textContent='Sign In';btn.disabled=false;
 }
 
 // ── INIT ────────────────────────────────────────────────
